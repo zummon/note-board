@@ -1,44 +1,47 @@
 'use client'
 
 import './globals.css'
-import { usePathname, useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import languages from './languages.json'
 
 export default function RootLayout({ children }) {
-  const pathname = usePathname()
-  const router = useRouter()
-  const [dark, setDark] = useState(false)
+	const router = useRouter()
+	const pathname = usePathname()
+	const searchParams = useSearchParams()
 
+  const dark = searchParams.get('dark') == 'true'
   const lang = pathname.slice(1)
-  const {content, ...language} = languages[lang]
+  const { content, ...language } = languages[lang]
 
   return (
-    <html lang="en" className={dark ? 'dark' : ''}>
+    <html lang={lang} className={dark ? 'dark' : ''}>
       <head>
         <title>Note Board</title>
       </head>
       <body className="">
 
-
 <div className="flex flex-col items-center min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-400 dark:text-gray-500 font-medium duration-500">
 	<div className="flex flex-wrap ml-auto p-4">
 		<label className="flex items-center cursor-pointer bg-white dark:bg-gray-800 shadow hover:shadow-lg focus:shadow-lg py-1 px-3 rounded-3xl transition-responsive duration-500 ease-in-out mr-4">
 			{/* heroicons Solid moon */}
-			<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+			<svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
 				<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
 			</svg>
-			<input className="" type="checkbox" hidden={true} checked={dark} onChange={e => setDark(e.target.checked)} />
+			<input className="" type="checkbox" hidden={true} checked={dark} onChange={(e) => {
+				router.replace(`${pathname}?dark=${e.target.checked}`,{ scroll: false })
+			}} />
 		</label>
 		<label className="flex items-center cursor-pointer bg-white dark:bg-gray-800 shadow hover:shadow-lg focus:shadow-lg py-1 px-3 rounded-3xl transition-responsive duration-500 ease-in-out">
 			 {/* heroicons Solid globe  */}
-			<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+			<svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
 				<path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clipRule="evenodd" />
 			</svg>
-			<select className="text-lg bg-transparent font-medium cursor-pointer border-0" value={lang} onChange={e => router.push(`/${e.target.value}`)}>
-        {Object.entries(languages).map(([locale, {name}], index) => {
-          return <option key={`setlang${index}`} value={locale}>{name}</option>
-        })}
+			<select className="text-lg bg-transparent font-medium cursor-pointer border-0" value={lang} onChange={(e) => {
+				router.push(`/${e.target.value}?dark=${dark}`,{ scroll: false })
+			}}>
+				{Object.entries(languages).map(([locale, {name}], index) => {
+					return <option key={`set-lang-${index}`} value={locale}>{name}</option>
+				})}
 			</select>
 		</label>
 		<input type="checkbox" hidden={true} />
@@ -54,8 +57,9 @@ export default function RootLayout({ children }) {
           {content[0]["desc"]}
 				</p>
 				<a className="hover:bg-gray-900 focus:bg-gray-900 dark:hover:bg-gray-50 dark:focus:bg-gray-50 hover:text-gray-50 focus:text-gray-50 dark:hover:text-gray-900 dark:focus:text-gray-900 shadow hover:shadow-lg focus:shadow-lg hidden group-hover:inline-flex group-focus:inline-flex items-center transition duration-500 ease-in-out px-4 py-2" href="#">
-					<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+					{/* heroicons outline chevron-right */}
+					<svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+						<path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
 					</svg>
 					<span className="text-lg font-medium">
             {language["theButton"]}
@@ -82,8 +86,9 @@ export default function RootLayout({ children }) {
 					{content[2]["desc"]}
 				</p>
 				<a className="hover:bg-gray-900 focus:bg-gray-900 dark:hover:bg-gray-50 dark:focus:bg-gray-50 hover:text-gray-50 focus:text-gray-50 dark:hover:text-gray-900 dark:focus:text-gray-900 shadow hover:shadow-lg focus:shadow-lg hidden group-hover:inline-flex group-focus:inline-flex items-center transition duration-500 ease-in-out px-4 py-2" href="#">
-					<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+					{/* heroicons outline chevron-right */}
+					<svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+						<path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
 					</svg>
 					<span className="text-lg font-medium">
             {language["theButton"]}
@@ -98,6 +103,7 @@ export default function RootLayout({ children }) {
 				<p className="hidden group-hover:block group-focus:block my-2 p-2">
 					{content[3]["desc"]}
 				</p>
+				<p className="hidden group-hover:block group-focus:block mt-4">{language["madeBy"]}</p>
 			</div>
 		</div>
 	</div>
@@ -129,9 +135,8 @@ export default function RootLayout({ children }) {
 		</a>
 	</div>
 </div>
-        {children}
 
-<p className="text-center mb-4">{language["madeBy"]}</p>
+        {children}
 
       </body>
     </html>
