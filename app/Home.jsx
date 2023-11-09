@@ -12,7 +12,7 @@ export default function ({  }){
 
 	let [,lang] = pathname.split('/')
 	if (!languages[lang]){
-		lang = ''
+		lang = 'en'
 	}
 
 	const { content, theButton, madeBy } = languages[lang]
@@ -27,7 +27,7 @@ export default function ({  }){
 					<p className="hidden group-hover:block group-focus:block my-2 p-2">
 						{content[0]["desc"]}
 					</p>
-					<Link className="hover:bg-gray-900 focus:bg-gray-900 dark:hover:bg-gray-50 dark:focus:bg-gray-50 hover:text-gray-50 focus:text-gray-50 dark:hover:text-gray-900 dark:focus:text-gray-900 shadow hover:shadow-lg focus:shadow-lg hidden group-hover:inline-flex group-focus:inline-flex items-center transition duration-500 ease-in-out px-4 py-2" href={`${lang ? `/${lang}` : ''}/lorem?dark=${dark}`}>
+					<Link className="hover:bg-gray-900 focus:bg-gray-900 dark:hover:bg-gray-50 dark:focus:bg-gray-50 hover:text-gray-50 focus:text-gray-50 dark:hover:text-gray-900 dark:focus:text-gray-900 shadow hover:shadow-lg focus:shadow-lg hidden group-hover:inline-flex group-focus:inline-flex items-center transition duration-500 ease-in-out px-4 py-2" href={`/${lang}/lorem?dark=${dark}`}>
 						{/* heroicons outline chevron-right */}
 						<svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
 							<path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -56,7 +56,7 @@ export default function ({  }){
 					<p className="hidden group-hover:block group-focus:block my-2 p-2">
 						{content[2]["desc"]}
 					</p>
-					<Link className="hover:bg-gray-900 focus:bg-gray-900 dark:hover:bg-gray-50 dark:focus:bg-gray-50 hover:text-gray-50 focus:text-gray-50 dark:hover:text-gray-900 dark:focus:text-gray-900 shadow hover:shadow-lg focus:shadow-lg hidden group-hover:inline-flex group-focus:inline-flex items-center transition duration-500 ease-in-out px-4 py-2" href={`${lang ? `/${lang}` : ''}/asperior?dark=${dark}`}>
+					<Link className="hover:bg-gray-900 focus:bg-gray-900 dark:hover:bg-gray-50 dark:focus:bg-gray-50 hover:text-gray-50 focus:text-gray-50 dark:hover:text-gray-900 dark:focus:text-gray-900 shadow hover:shadow-lg focus:shadow-lg hidden group-hover:inline-flex group-focus:inline-flex items-center transition duration-500 ease-in-out px-4 py-2" href={`/${lang}/asperior?dark=${dark}`}>
 						{/* heroicons outline chevron-right */}
 						<svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
 							<path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />

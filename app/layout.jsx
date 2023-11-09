@@ -13,15 +13,15 @@ export default function ({ children }) {
 	const dark = searchParams.get('dark') == 'true'
 
 	let [,lang,path] = pathname.split('/')
-	if (!path){
-		path = lang
-	}
 	if (!languages[lang]){
-		lang = ''
+		lang = 'en'
+	}
+	if (!path){
+		path = ''
 	}
 
 	return (
-		<html lang={lang == '' ? 'en' : lang} className={dark ? 'dark' : ''}>
+		<html lang={lang} className={dark ? 'dark' : ''}>
 			<body className="">
 
 				<div className="flex flex-col items-center min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-400 dark:text-gray-500 font-medium duration-500">
@@ -50,7 +50,7 @@ export default function ({ children }) {
 							</svg>
 							<select className="text-lg bg-transparent font-medium cursor-pointer border-0" value={lang} onChange={(e) => {
 								let value = e.target.value
-								router.push(`${value ? `/${value}` : ''}/${path}?dark=${dark}`)
+								router.push(`/${value}/${path}?dark=${dark}`)
 							}}>
 								{Object.entries(languages).map(([locale, {name}], index) => {
 									return <option key={`set-lang-${index}`} value={locale}>{name}</option>
