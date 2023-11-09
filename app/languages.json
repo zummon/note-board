@@ -1,6 +1,7 @@
 {
  "": {
     "name": "English",
+    "title": "Note Board",
     "theButton": "Enter",
     "content": [
       {
@@ -24,6 +25,7 @@
   },
   "zh": {
     "name": "中国人",
+    "title": "记事板",
     "theButton": "进入",
     "content": [
       {
