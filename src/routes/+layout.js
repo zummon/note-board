@@ -1,5 +1,7 @@
 import languages from '../lib/languages.json'
 
+export const trailingSlash = 'always';
+
 export function load({ url }){
 
 	let [,lang,path] = url.pathname.split('/')
@@ -10,10 +12,13 @@ export function load({ url }){
 		path = ''
 	}
 
+	let searchParams = url.searchParams 
+	let dark = searchParams.get('dark') == 'true'
+
 	return {
-		pathname: url.pathname,
 		languages,
 		lang,
 		path,
+		dark
 	}
 }

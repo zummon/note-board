@@ -5,4 +5,4 @@
   
 </script>
 
-<Home lang={data.lang} />
+<Home lang={data.lang} dark={data.dark} data={data.languages} />

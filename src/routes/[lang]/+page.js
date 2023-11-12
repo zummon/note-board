@@ -1,7 +1,7 @@
 export const prerender = true
 
 export async function load({ parent }){
-	let { lang } = await parent()
+	let { lang, dark, languages } = await parent()
 
-	return { lang }
+	return { lang, dark, languages }
 }
