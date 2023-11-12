@@ -1,5 +1,8 @@
 <script>
 	import Home from "../../lib/Home.svelte"
+
+	export let data
+	
 </script>
 
-<Home />
+<Home lang={data.lang} />

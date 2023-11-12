@@ -1,15 +1,17 @@
 <script>
-	import { page } from '$app/stores';
 	import languages from './languages.json'
+  import { onMount } from 'svelte';
 
-	const dark = $page.url.searchParams.get('dark') == 'true'
+	export let lang
 
-	let [,lang] = $page.url.pathname.split('/')
-	if (!languages[lang]){
-		lang = 'en'
-	}
+	let dark = false
 
 	const { content, theButton, madeBy } = languages[lang]
+
+	onMount(() => {
+		let searchParams = new URL(document.location).searchParams;
+		dark = searchParams.get('dark') == 'true'
+	})
 
 </script>
 
