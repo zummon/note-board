@@ -12,8 +12,8 @@ export function load({ url }){
 		path = ''
 	}
 
-	let searchParams = url.searchParams 
-	let dark = searchParams.get('dark') == 'true'
+	// let searchParams = url.searchParams 
+	let dark = false //searchParams.get('dark') == 'true'
 
 	return {
 		languages,

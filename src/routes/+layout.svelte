@@ -1,15 +1,12 @@
 <script>
 	import '../app.css'
-	import { goto } from '$app/navigation';
+	// import { goto } from '$app/navigation';
 
 	export let data
 
 </script>
 
 <svelte:document lang={data.lang} class={data.dark ? 'dark' : ''}></svelte:document>
-
-{data.dark}<br>
-{data.lang}<br>
 
 <div class="flex flex-wrap ml-auto p-4">
 	{#if data.path}
@@ -26,7 +23,7 @@
 			<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
 		</svg>
 		<input class="sr-only" type="checkbox" checked={data.dark} on:change={(e) => {
-			goto(`/${data.lang}/${data.path}/?dark=${e.target.checked}`)
+			// goto(`/${data.lang}/${data.path}/?dark=${e.target.checked}`)
 		}} />
 	</label>
 	<label class="flex items-center cursor-pointer bg-white dark:bg-gray-800 shadow hover:shadow-lg focus:shadow-lg py-1 px-3 rounded-3xl transition-responsive duration-500 ease-in-out focus-within:shadow-lg">
@@ -36,7 +33,7 @@
 		</svg>
 		<select class="text-lg bg-transparent font-medium cursor-pointer border-0" value={data.lang} on:change={(e) => {
 			let value = e.target.value
-			goto(`/${value}/${data.path}/?dark=${data.dark}`)
+			// goto(`/${value}/${data.path}/?dark=${data.dark}`)
 		}}>
 			{#each Object.entries(data.languages) as [locale, item], index (`set-lang-${index}`)}
 				<option value={locale}>{item.name}</option>
