@@ -1,31 +1,40 @@
 <script>
+  import { onMount } from 'svelte';
 	import '../app.css'
 	// import { goto } from '$app/navigation';
 
 	export let data
 
+	let dark
+
+	onMount(() => {
+		let params = new URL(document.location).searchParams;
+		dark = params.get("dark") == 'true'
+		// document.documentElement.className = dark ? 'dark' : ''
+	})
 </script>
 
-<svelte:document lang={data.lang} class={data.dark ? 'dark' : ''}></svelte:document>
+<svelte:document lang={data.lang} ></svelte:document>
+
+<svelte:body class={dark ? 'dark' : ''}></svelte:body>
 
 <div class="flex flex-wrap ml-auto p-4">
 	{#if data.path}
-		<a class="flex items-center cursor-pointer bg-white dark:bg-gray-800 shadow hover:shadow-lg focus:shadow-lg py-1 px-3 rounded-3xl transition-responsive duration-500 ease-in-out mr-4" href={`/${data.lang}?dark=${data.dark}`}>
+		<a class="flex items-center cursor-pointer bg-white dark:bg-gray-800 shadow hover:shadow-lg focus:shadow-lg py-1 px-3 rounded-3xl transition-responsive duration-500 ease-in-out mr-4" href={`/${data.lang}?dark=${dark}`}>
 			<!-- heroicons outline arrow-uturn-left -->
 			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" class="w-6 h-6">
 				<path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
 			</svg>
 		</a>
 	{/if}
-	<label class="flex items-center cursor-pointer bg-white dark:bg-gray-800 shadow hover:shadow-lg focus:shadow-lg py-1 px-3 rounded-3xl transition-responsive duration-500 ease-in-out mr-4 focus-within:shadow-lg">
-		<!-- heroicons Solid moon -->
-		<svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-			<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-		</svg>
-		<input class="sr-only" type="checkbox" checked={data.dark} on:change={(e) => {
-			// goto(`/${data.lang}/${data.path}/?dark=${e.target.checked}`)
-		}} />
-	</label>
+	<div class="flex items-center cursor-pointer bg-white dark:bg-gray-800 shadow hover:shadow-lg focus:shadow-lg py-1 px-3 rounded-3xl transition-responsive duration-500 ease-in-out mr-4 focus-within:shadow-lg">
+		<a class="" href={`${data.pathname}?dark=${!dark}`}>
+			<!-- heroicons Solid moon -->
+			<svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+				<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+			</svg>
+		</a>
+	</div>
 	<label class="flex items-center cursor-pointer bg-white dark:bg-gray-800 shadow hover:shadow-lg focus:shadow-lg py-1 px-3 rounded-3xl transition-responsive duration-500 ease-in-out focus-within:shadow-lg">
 		<!-- heroicons Solid globe -->
 		<svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -33,7 +42,7 @@
 		</svg>
 		<select class="text-lg bg-transparent font-medium cursor-pointer border-0" value={data.lang} on:change={(e) => {
 			let value = e.target.value
-			// goto(`/${value}/${data.path}/?dark=${data.dark}`)
+			// goto(`/${value}/${data.path}/?dark=${dark}`)
 		}}>
 			{#each Object.entries(data.languages) as [locale, item], index (`set-lang-${index}`)}
 				<option value={locale}>{item.name}</option>

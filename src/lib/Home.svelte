@@ -61,6 +61,6 @@
 		<p class="hidden group-hover:block group-focus:block my-2 p-2">
 			{content[3]["desc"]}
 		</p>
-		<p class="hidden group-hover:block group-focus:block">{madeBy}</p>
+		<p class="hidden group-hover:block group-focus:block p-2">{madeBy}</p>
 	</div>
 </div>

@@ -19,6 +19,7 @@ export function load({ url }){
 		languages,
 		lang,
 		path,
-		dark
+		dark,
+		pathname: url.pathname
 	}
 }
