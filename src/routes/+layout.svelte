@@ -8,15 +8,11 @@
 	let dark
 
 	onMount(() => {
-		let params = new URL(document.location).searchParams;
-		dark = params.get("dark") == 'true'
-		// document.documentElement.className = dark ? 'dark' : ''
+		const searchParams = new URL(document.location).searchParams;
+		dark = searchParams.get("dark") == 'true'
+		document.documentElement.className = dark ? 'dark' : ''
 	})
 </script>
-
-<svelte:document lang={data.lang} ></svelte:document>
-
-<svelte:body class={dark ? 'dark' : ''}></svelte:body>
 
 <div class="flex flex-wrap ml-auto p-4">
 	{#if data.path}
