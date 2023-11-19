@@ -6,12 +6,14 @@
 	export let data
 
 	let dark
+	let openSetLang
 
 	onMount(() => {
 		const searchParams = new URL(document.location).searchParams;
 		dark = searchParams.get("dark") == 'true'
-		document.documentElement.className = dark ? 'dark' : ''
 	})
+	
+	$: document.documentElement.classList.toggle('dark', dark)
 </script>
 
 <div class="flex flex-wrap ml-auto p-4">
@@ -23,30 +25,38 @@
 			</svg>
 		</a>
 	{/if}
-	<div class="flex items-center cursor-pointer bg-white dark:bg-gray-800 shadow hover:shadow-lg focus:shadow-lg py-1 px-3 rounded-3xl transition-responsive duration-500 ease-in-out mr-4 focus-within:shadow-lg">
-		<a class="" href={`${data.pathname}?dark=${!dark}`}>
-			<!-- heroicons Solid moon -->
-			<svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-				<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-			</svg>
-		</a>
-	</div>
-	<label class="flex items-center cursor-pointer bg-white dark:bg-gray-800 shadow hover:shadow-lg focus:shadow-lg py-1 px-3 rounded-3xl transition-responsive duration-500 ease-in-out focus-within:shadow-lg">
-		<!-- heroicons Solid globe -->
+	<button class="flex items-center cursor-pointer bg-white dark:bg-gray-800 shadow hover:shadow-lg focus:shadow-lg py-1 px-3 rounded-3xl transition-responsive duration-500 ease-in-out mr-4" on:click={() => {
+		dark = !dark
+	}}>
+		<!-- heroicons Solid moon -->
 		<svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-			<path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clipRule="evenodd" />
+			<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
 		</svg>
-		<select class="text-lg bg-transparent font-medium cursor-pointer border-0" value={data.lang} on:change={(e) => {
-			let value = e.target.value
-			// goto(`/${value}/${data.path}/?dark=${dark}`)
+	</button>
+	<div class="relative">
+		<button class="flex items-center cursor-pointer bg-white dark:bg-gray-800 shadow hover:shadow-lg focus:shadow-lg py-1 px-3 rounded-3xl transition-responsive duration-500 ease-in-out" on:click={() => {
+			openSetLang = !openSetLang
 		}}>
-			{#each Object.entries(data.languages) as [locale, item], index (`set-lang-${index}`)}
-				<option value={locale}>{item.name}</option>
-			{/each}
-		</select>
-	</label>
-	<input class="sr-only" type="checkbox" />
+			<span class="">
+				<!-- heroicons Solid globe -->
+				<svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+					<path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clipRule="evenodd" />
+				</svg>
+			</span>
+			<span class="text-lg font-medium">
+				{data.lang}
+			</span>
+		</button>
+		<div class={`absolute ${openSetLang ? '' : 'hidden'}`}>
+			<div class="flex flex-col gap-4 pt-4">
+				{#each Object.entries(data.languages) as [locale, item], index (`set-lang-${index}`)}
+					<a class="" href={`/${locale}`}>{item.name}</a>
+				{/each}
+			</div>
+		</div>
+	</div>
 </div>
+
 
 <div class="flex-grow flex flex-wrap items-center">
 	<slot></slot>
