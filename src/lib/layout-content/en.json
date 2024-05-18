@@ -1,0 +1,23 @@
+{
+	"title": "Note Board",
+	"theButton": "Enter",
+	"content": [
+		{
+			"title": "Lorem",
+			"desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+		},
+		{
+			"title": "Volup",
+			"desc": "Voluptate est vero id, aperiam magni eveniet eius"
+		},
+		{
+			"title": "Asperior",
+			"desc": "asperiores amet nam veniam ut ipsum, quam iste"
+		},
+		{
+			"title": "Autem perspicia",
+			"desc": "autem perspiciatis minima quibusdam, possimus et."
+		}
+	],
+	"madeBy": "Made by zummon (Teerapat Anantarattanachai)"
+}
