@@ -1,6 +1,4 @@
 
-export const trailingSlash = 'always';
-
 export function load({ url, params }){
 
 	let languages={
@@ -12,13 +10,10 @@ export function load({ url, params }){
 		}
 	}
 
-	let [,lang,path] = url.pathname.split('/')
+	lang = params.lang
 	
 	if (!languages[lang]){
 		lang = 'en'
-	}
-	if (!path){
-		path = ''
 	}
 
 	return {
